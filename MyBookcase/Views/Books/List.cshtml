@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model MyBookcase.Models.Entities.booksCategoryViewModel
+
+<h1>Livros</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Autor</th>
+            <th>Ano de publicação</th>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Quatidade em estoque</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.books)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.yearsOfPublication</td>
+                <td>@book.Description</td>
+                @foreach(var category in Model.categories)
+                {
+                    @if (book.categoryId == category.Id)
+                    {
+                        <td>@category.Name</td>
+                    }                   
+                }
+                <td>@book.quantityInStock</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
